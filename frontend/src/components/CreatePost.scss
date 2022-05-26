@@ -1,0 +1,62 @@
+.post-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 500px;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
+    #title{
+        border-width: 1px;
+        width: 100%;
+        margin-bottom: 30px;
+        border-radius: 21px;
+    }
+    #content{
+    height: 80%;
+    width: 100%;
+    }
+}
+form label{
+    margin-bottom: 10px;
+}
+textarea{
+    resize: none;
+    font-family: arial;
+    ::placeholder{
+        font-size: 50px;
+    }
+}
+.Wall{
+    display: flex;
+    justify-content: center;
+    margin: 200px 0px 50px 0px;
+}
+
+.bouton-container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    button{
+        margin: 20px;
+    }
+}
+.container-smiley-choosefile{
+    display: flex;
+    width: 100%;
+}
+.add-smiley{
+    display: flex;
+    width: 100%;
+    padding: 10px;
+    justify-content: flex-start;
+}
+.react-input-emoji--input{
+    height: 200px;
+}
+.react-input-emoji--placeholder{
+    display: flex;
+    align-items: flex-start;
+}

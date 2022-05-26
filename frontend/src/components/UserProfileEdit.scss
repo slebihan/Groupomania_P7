@@ -1,0 +1,77 @@
+.container-profil{
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+}
+.title-container{
+    text-align: center;
+    margin-top: 200px;
+    width: 100vw;
+    h1{
+        color: white;
+    }
+}
+
+.userlist-information{
+    text-align: center;
+    margin: 30px;
+    list-style: none;
+    padding: 10px;
+    background-color: #fcd6d5;
+    width: 80%;
+    border-radius: 50px;
+    box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
+}
+
+.cardcontainer-infosUser{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    width: 100%;
+}
+.card-infosUser{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: auto;
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
+    #avatar{
+        width: 140px;
+        height: 140px;
+    }
+    .card-infosUser-display{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        .infosUser-display{
+            font-size: 10px;
+        }
+    }
+}
+.profil-edit{
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    background-color: white;
+    border-radius: 20px;
+    width: 70%;
+    button{
+        margin-bottom: 50px;
+        width: 100%;
+    }
+}
+.informations{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+}
+.deleteImageProfil{
+    width: 100%;
+}

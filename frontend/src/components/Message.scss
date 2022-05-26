@@ -1,0 +1,129 @@
+.comment_container {
+  display: flex;
+  margin-top: 200px;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  .message {
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
+    p {
+      font-size: 10px;
+      text-align: left;
+    }
+    img {
+      width: 20%;
+      height: 20%;
+    }
+    h1 {
+      font-size: 20px;
+      margin: 0px;
+      padding: 10px;
+    }
+    h2 {
+      font-size: 15px;
+    }
+    .show{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .hide{
+      display: none;
+    }
+    input,textarea,button{
+      display: none;
+      margin-top: 20px;
+    }
+    .input-title,.content{
+      padding: 0px;
+      width: 200px;
+    }
+    .content-update{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+    }
+    .comments{
+      display: flex;
+      margin:0px 10px 10px 10px;
+      background-color: rgba(128, 128, 128, 0.257);
+      border-radius: 50px;
+      p{
+        font-size: 12px;
+      }
+    }
+    .btn-comment,
+    .like,
+    .dislike,
+    .delete,
+    .edit {
+      cursor: pointer;
+      height: 20px;
+      margin: 10px;
+    }
+    .btn-like-active,
+    .btn-dislike-active 
+    {
+      cursor: pointer;
+      margin: 10px;
+      height: 20px;
+      color: #fc2d00;
+    }
+    .btn-seemore{
+      display: flex;
+      justify-content: flex-end;
+      padding: 20px;
+    }  
+    .info-userpublisher {
+      display: flex;
+      border-bottom: 1px solid black;
+      padding: 10px 10px 10px 10px;
+      width: auto;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      p:nth-child(3){
+          display: flex;
+          width: 100%;
+          justify-content: flex-end;
+          
+      }
+    }
+    #avatar {
+      width: 40px;
+      height: 40px;
+      margin-right: 10px;
+    }
+  }
+.reply-container{
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.createComment{
+  display: flex;
+  justify-content: center;
+  width: 90%;
+   textarea {
+    display: flex;
+    width: 95%;
+    padding: 0px;
+  }
+}
+}
+.comment-infopublisher{
+  display: flex;
+  :nth-child(1){
+    margin-right: 5px;
+  }
+}
+ 
