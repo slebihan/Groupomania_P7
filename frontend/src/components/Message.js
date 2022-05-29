@@ -26,6 +26,17 @@ export default function Message() {
   const userId = parseInt(useParams().userId);
   console.log(userId)
 
+  const token = Cookies.get("jwt");
+      // terminate operation if token is invalid
+      // Split the token and taken the second
+      const base64Url = token.split(".")[1];
+      // console.log(base64Url);
+      // Replace "-" with "+"; "_" with "/"
+      const base64 = base64Url.replace("-", "+").replace("_", "/");
+      // console.log(base64);
+      const decodedToken = JSON.parse(window.atob(base64));
+      console.log(decodedToken);
+
   const [messages, setMessages] = useState([]);
 
   const messageData = (req, res, next) => {
@@ -43,7 +54,7 @@ export default function Message() {
 
   const commentData = (req, res, next) => {
     axios.get("http://localhost:3000/api/comments").then((res) => {
-      console.log(res.data[3]);
+      console.log(res.data[2]);
       setComments(res.data);
     });
   };
@@ -271,16 +282,13 @@ export default function Message() {
             )}
           </div>
 
-          {users.map((user)=>
-            user.isAdmin === true && (
-          <FontAwesomeIcon className="edit" icon={faEdit} />
-          ))}
-          {message.UserId === userId &&  (
+      
+          {(message.UserId === userId || decodedToken.isAdmin === true) && (
             <FontAwesomeIcon className="edit" icon={faEdit} />
           )}
 
 
-          {message.UserId === userId && (
+          {message.UserId === userId || decodedToken.isAdmin === true && (
             <FontAwesomeIcon
               onClick={() => deleteMessage(message.id)}
               icon={faTrashCan}
@@ -288,14 +296,6 @@ export default function Message() {
             />
           )}
 
-            {users.map((user)=>
-            user.isAdmin === true && (
-            <FontAwesomeIcon
-              onClick={() => deleteMessage(message.id)}
-              icon={faTrashCan}
-              className="delete"
-            />
-          ))}
 
           <FontAwesomeIcon
             className="btn-comment"

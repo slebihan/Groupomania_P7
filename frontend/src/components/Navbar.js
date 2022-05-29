@@ -4,8 +4,8 @@ import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import Logout from "./Logout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOut, faUser } from "@fortawesome/free-solid-svg-icons";
-import img from "../assets/img/icon-left-font-monochrome-white.svg";
+import { faPeopleRoof, faSignOut, faUser, faUsersViewfinder } from "@fortawesome/free-solid-svg-icons";
+import img from "../assets/img/icon.svg";
 import "../components/Navbar.scss";
 
 export default function Navbar() {
@@ -130,6 +130,7 @@ export default function Navbar() {
                 className={isOpen ? "circle-menu circle-anim" : "circle-menu"}
               >
                 <div className="links-circle">
+                  {firstname !== "Admin" ? (
                   <FontAwesomeIcon
                     style={{color:"white",cursor:"pointer"}}
                     fontSize={25}
@@ -137,7 +138,19 @@ export default function Navbar() {
                     onClick={() =>
                       window.open(`/UserProfileEdit/` + params.userId, "_self")
                     }
-                  />
+                  />) : (
+                    
+                    <FontAwesomeIcon
+                    style={{color:"white",cursor:"pointer"}}
+                    fontSize={30}
+                    icon={faUsersViewfinder}
+                    onClick={() =>
+                      window.open(`/UserProfile/Admin/Dashboard`, "_self")
+                    }
+                  />)}
+
+
+                  
                 </div>
                 <div className="links-circle">
                   <FontAwesomeIcon
