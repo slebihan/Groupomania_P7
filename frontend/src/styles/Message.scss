@@ -58,6 +58,10 @@
       p{
         font-size: 12px;
       }
+      .comment-publisheravatar{
+        display: flex;
+        align-items: center;
+      }
     }
     .btn-comment,
     .like,
@@ -76,12 +80,7 @@
       height: 20px;
       color: #fc2d00;
     }
-    // .btn-seemore{
-    //   display: flex;
-    //   justify-content: flex-end;
-    //   padding: 20px;
-    // }  
-    .info-userpublisher {
+    .info-messagepublisher {
       display: flex;
       border-bottom: 1px solid black;
       padding: 10px 10px 10px 10px;

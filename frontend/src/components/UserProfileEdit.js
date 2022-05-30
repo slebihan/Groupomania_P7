@@ -5,13 +5,37 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
 
 import Navbar from "./Navbar";
-import "./UserProfileEdit.scss";
+import "../styles/UserProfileEdit.scss";
 const FormData = require("form-data");
 
 export default function UserProfileEdit() {
-  const [firstname, setFirstname] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [email, setEmail] = useState('');
+  
+  const userId = parseInt(useParams().userId);
+
+  function checkIsAdmin() {
+    const token = Cookies.get("jwt");
+    if(token === undefined){
+      window.location.assign("http://localhost:3001/api/logout")
+    }
+    // terminate operation if token is invalid
+    // Split the token and taken the second
+    const base64Url = token.split(".")[1];
+    // console.log(base64Url);
+    // Replace "-" with "+"; "_" with "/"
+    const base64 = base64Url.replace("-", "+").replace("_", "/");
+    // console.log(base64);
+    const decodedToken = JSON.parse(window.atob(base64));
+    console.log(decodedToken.userId);
+
+    if (decodedToken.userId !== userId) {
+      window.location.assign("http://localhost:3001/api/logout");
+    }
+  }
+  checkIsAdmin();
+
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [email, setEmail] = useState("");
   const [avatar, setAvatar] = useState("");
 
   const params = useParams();
@@ -27,16 +51,15 @@ export default function UserProfileEdit() {
       setFirstname(success.data.firstname);
       setLastname(success.data.lastname);
       setEmail(success.data.email);
-    })
-    .catch((error) => navigate("/"));
+    });
 
   const deleteAccount = () => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer votre profil?")) {
       axios
-        .delete("http://localhost:3000/api/UserProfileEdit/" + params.userId,{
+        .delete("http://localhost:3000/api/UserProfileEdit/" + params.userId, {
           headers: {
             Authorization: "Bearer " + Cookies.get("jwt"),
-          }
+          },
         })
         .then((success) => {
           console.log(success);
@@ -48,16 +71,8 @@ export default function UserProfileEdit() {
 
   const emailRegExp = new RegExp("^.+(@groupomania.fr$)");
   const passwordRegExp = new RegExp(
-  //  /*OK*/ "(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,})(?:.*[0-9]{1,3})(?:.*[+@=*&$-]{0,1})."
-    /*OK*/ "(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,})(?:.*[0-9]{1,3})(?:.*[+@=*&$-]{0,1})."
-
-    // "(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,}).(?:[a-z][\d]{0,4}).(?=[+@=*&$-]{0,1})"
-    // "^(.*?[A-Z])(.*?[a-z])(.*?[0-9]).$"
-    // "^(.*?[A-Z])([a-z]){1,5}([0-9]).$"
-    // "(?=.{8,15}$)(.*?[A-Z])([a-z]){1,9}([0-9]){1,4}.([+\/-_=$*])$"
-    // "/^(?=.{8,12}$)(?:[A-Z]{1,})(.*[0-9]{1})(?:[a-z]{1,})(?:[^àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ]{1})(?:([+@=*]{0,1}))$/"
+  "(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,})(?:.*[0-9]{1,3})(?:.*[+@=*&$-]{0,1})."
   );
-
 
   const formik = useFormik({
     initialValues: {
@@ -68,7 +83,6 @@ export default function UserProfileEdit() {
       attachment: null,
     },
     onSubmit: (values) => {
-      
       const Lastnamevalue = document.getElementById("lastname").value;
       const Firstnamevalue = document.getElementById("firstname").value;
       const password = document.getElementById("password").value;
@@ -81,7 +95,7 @@ export default function UserProfileEdit() {
 
       formData.append("email", EmailValue);
       formData.append("password", password);
-      console.log(password)
+      console.log(password);
       formData.append("attachment", values.attachment);
       console.log(values.attachment);
 
@@ -108,19 +122,16 @@ export default function UserProfileEdit() {
               }
             )
             .then(() => {
-              alert('Votre profil a bien été mis à jour');
-              setAvatar()
-              formik.resetForm()
-              formik.setFieldValue('')
-
-              
+              alert("Votre profil a bien été mis à jour");
+              setAvatar();
+              formik.resetForm();
+              formik.setFieldValue("");
             })
             .catch((error) => alert("error"));
         }
       }
     },
-  }
-  );
+  });
 
   useEffect(() => {
     const OneUserInfo = () => {
@@ -138,31 +149,27 @@ export default function UserProfileEdit() {
     OneUserInfo();
   });
 
-  
-  function deleteImageProfil(){
-
-    if (
-      window.confirm("Etes-vous sûr de vouloir supprimer votre avatar ?")
-    ) {
-    axios.put(`http://localhost:3000/api/UserProfileEdit/avatar/` + params.userId,{
-      body:{userId : params.userId},
-      headers: {
-        Authorization: "Bearer " + Cookies.get("jwt"),
-      },
-    })
-    .then((success)=>{
-      console.log("success")
-      setAvatar()
-
-    })
-    .catch((err) => console.log(err))
-    }
-    else{
-      return
+  function deleteImageProfil() {
+    if (window.confirm("Etes-vous sûr de vouloir supprimer votre avatar ?")) {
+      axios
+        .put(
+          `http://localhost:3000/api/UserProfileEdit/avatar/` + params.userId,
+          {
+            body: { userId: params.userId },
+            headers: {
+              Authorization: "Bearer " + Cookies.get("jwt"),
+            },
+          }
+        )
+        .then((success) => {
+          console.log("success");
+          setAvatar();
+        })
+        .catch((err) => console.log(err));
+    } else {
+      return;
     }
   }
- 
-  
 
   return (
     <div className="container-profil">
@@ -175,9 +182,11 @@ export default function UserProfileEdit() {
           <div className="card-infosUser-display">
             <div className="avatar-display">
               <img src={avatar} alt="avatar" id="avatar" />
-              <button onClick={deleteImageProfil} className="deleteImageProfil">Supprimer mon avatar</button>
+              <button onClick={deleteImageProfil} className="deleteImageProfil">
+                Supprimer mon avatar
+              </button>
             </div>
-            
+
             <div className="infosUser-display">
               <h2>Prénom : {firstname}</h2>
               <h2>Nom : {lastname}</h2>
@@ -188,7 +197,7 @@ export default function UserProfileEdit() {
       </div>
       <div className="profil-edit">
         <h1 className="title">Modification du Profil</h1>
-        <form 
+        <form
           name="form"
           className="informations"
           id="form"
@@ -235,15 +244,13 @@ export default function UserProfileEdit() {
               formik.setFieldValue("attachment", event.target.files[0])
             }
           ></input>
-          
+
           <div className="btnActionprofil">
-          <button type="submit" >Modifier mon compte</button>
-          <button onClick={deleteAccount}>Supprimer mon compte</button>
+            <button type="submit">Modifier mon compte</button>
+            <button onClick={deleteAccount}>Supprimer mon compte</button>
           </div>
         </form>
-        </div>
-       
-      
+      </div>
     </div>
   );
 }

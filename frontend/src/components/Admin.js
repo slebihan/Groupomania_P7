@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Cookies from "js-cookie";
-import axios from "axios";
 import Navbar from "./Navbar";
 import Message from "./Message";
 import CreatePost from "./CreatePost";
-import { useParams } from "react-router-dom";
 
-const AdminPage = (req, res) => {
+
+const Admin = (req, res) => {
     function checkIsAdmin() {
       const token = Cookies.get("jwt");
+      if(token === undefined){
+        window.location.assign("http://localhost:3001/api/logout")
+      }
       // terminate operation if token is invalid
       // Split the token and taken the second
       const base64Url = token.split(".")[1];
@@ -37,4 +39,4 @@ const AdminPage = (req, res) => {
   );
 };
 
-export default AdminPage;
+export default Admin;

@@ -1,4 +1,3 @@
-
 import React from "react";
 import Navbar from "./Navbar";
 import Message from "./Message";
@@ -7,11 +6,13 @@ import CreatePost from "./CreatePost";
 import Cookies from "js-cookie";
 
 export default function UserProfile() {
-
-  const userId = parseInt(useParams().userId)
+  const userId = parseInt(useParams().userId);
 
   function checkIsAdmin() {
     const token = Cookies.get("jwt");
+    if(token === undefined){
+      window.location.assign("http://localhost:3001/api/logout")
+    }
     // terminate operation if token is invalid
     // Split the token and taken the second
     const base64Url = token.split(".")[1];
@@ -28,22 +29,11 @@ export default function UserProfile() {
   }
   checkIsAdmin();
 
- 
-
-
-
   return (
     <React.Fragment>
-      <Navbar 
-     />
-      <CreatePost 
-      
-      />
+      <Navbar />
+      <CreatePost />
       <Message />
- 
     </React.Fragment>
   );
 }
-
-
-

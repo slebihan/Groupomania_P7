@@ -8,6 +8,9 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 export default function Dashboard() {
   function checkIsAdmin() {
     const token = Cookies.get("jwt");
+    if(token === undefined){
+      window.location.assign("http://localhost:3001/api/logout")
+    }
     // terminate operation if token is invalid
     // Split the token and taken the second
     const base64Url = token.split(".")[1];
@@ -81,7 +84,7 @@ export default function Dashboard() {
         />
         <label
           htmlFor="username"
-          style={{ marginLeft: "30px", color: "white" }}
+          style={{ marginLeft: "30px", marginRight:"30px" }}
         >
           Recherche par Nom de Famille
         </label>
@@ -104,9 +107,9 @@ export default function Dashboard() {
           .map((user) => (
             <ul className="userlist-information" key={user.id}>
               <img src={user.attachment} alt="avatar" id="avatar" />
-              <li>{user.firstname}</li>
-              <li>{user.lastname}</li>
-              <li>{user.email}</li>
+              <li>Prénom : {user.firstname}</li>
+              <li>Nom : {user.lastname}</li>
+              <li>Email : {user.email}</li>
               <FontAwesomeIcon
                 cursor="pointer"
                 fontSize={20}

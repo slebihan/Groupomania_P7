@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./Home.scss";
+import "../styles/Home.scss";
 import img from "../assets/img/icon-above-font.svg";
 import Signup from "./Signup";
 import Login from "./Login";

@@ -3,14 +3,9 @@ import React,{useState,useEffect} from "react";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import InputEmoji from "react-input-emoji";
-// import Picker from 'emoji-picker-react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faFaceSmile
-} from "@fortawesome/free-regular-svg-icons";
-
-import "./CreatePost.scss";
+import "../styles/CreatePost.scss";
 import { useParams } from "react-router-dom";
+
 const FormData = require('form-data');
 
 
@@ -32,11 +27,6 @@ export default function Post() {
     messageData();
   }, []);
 
-  const [chosenEmoji, setChosenEmoji] = useState(null);
-
-  const onEmojiClick = (event,emojiObject) => {
-    setChosenEmoji(emojiObject);
-  };
 
   const formik = useFormik({
    initialValues : {
@@ -75,8 +65,6 @@ export default function Post() {
 
 })
 
-// const [show, setShow] = useState(false)
-
 
   return (
     <section className="Wall">
@@ -94,39 +82,6 @@ export default function Post() {
 
         <label htmlFor="content">Message </label>
 
-        {/* {chosenEmoji ? (
-          <textarea
-            id="content"
-            name="content"
-            type="text"
-            placeholder="Publiez votre message"
-            maxLength="250"
-            rows="20"
-            cols="35"
-            onChange={formik.handleChange}
-            value={formik.values.content || chosenEmoji.emoji}
-          ></textarea>
-        ) : (
-          <textarea
-            id="content"
-            name="content"
-            type="text"
-            placeholder="Publiez votre message"
-            maxLength="250"
-            rows="50"
-            cols="35"
-            onChange={formik.handleChange}
-            value={formik.values.content}
-          ></textarea>
-        )} */}
-        {/* <div className="add-smiley">
-            <FontAwesomeIcon
-              style={{ cursor: "pointer" }}
-              icon={faFaceSmile}
-              onClick={() => setShow(!show)}
-            />
-          </div> */}
-
         <InputEmoji
           
           value={formik.values.content}
@@ -143,21 +98,6 @@ export default function Post() {
             style={{ padding: "10px" }}
           />
         </div>
-
-        {/* {show ? (
-          <Picker
-            onEmojiClick={onEmojiClick}
-            disableSearchBar={true}
-            pickerStyle={{
-              width: "400px",
-              height: "250px",
-              position: "absolute",
-              right: "400px",
-              top: "600px",
-              zIndex: "20",
-            }}
-          />
-        ) : null} */}
 
         <div className="bouton-container">
           <button type="submit">Publier</button>

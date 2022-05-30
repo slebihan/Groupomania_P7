@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "./Message.scss";
-// import { useNavigate } from "react-router-dom";
+import "../styles/Message.scss";
+
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -9,33 +9,29 @@ import {
   faThumbsUp,
   faTrashCan,
   faEdit,
-  // faPlus,
   faComments,
   faReply,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { useParams } from "react-router-dom";
-
 export default function Message() {
-  // let navigate = useNavigate();
 
   const [textUpdateContent, setTextUpdateContent] = useState(null);
   const [textUpdateTitle, setTextUpdateTitle] = useState(null);
   const [textUpdateComment, setTextUpdateComment] = useState(null);
 
-  const userId = parseInt(useParams().userId);
-  console.log(userId)
-
   const token = Cookies.get("jwt");
-      // terminate operation if token is invalid
-      // Split the token and taken the second
-      const base64Url = token.split(".")[1];
-      // console.log(base64Url);
-      // Replace "-" with "+"; "_" with "/"
-      const base64 = base64Url.replace("-", "+").replace("_", "/");
-      // console.log(base64);
-      const decodedToken = JSON.parse(window.atob(base64));
-      console.log(decodedToken);
+  // terminate operation if token is invalid
+  // Split the token and taken the second
+  const base64Url = token.split(".")[1];
+  // console.log(base64Url);
+  // Replace "-" with "+"; "_" with "/"
+  const base64 = base64Url.replace("-", "+").replace("_", "/");
+  // console.log(base64);
+  const decodedToken = JSON.parse(window.atob(base64));
+  console.log(decodedToken);
+
+  const userId = decodedToken.userId;
+  console.log(userId);
 
   const [messages, setMessages] = useState([]);
 
@@ -104,15 +100,10 @@ export default function Message() {
     }
   }
 
-  const title = textUpdateTitle;
-  const content = textUpdateContent;
-  console.log(title);
-  console.log(content);
-
   function modifyMessage(id) {
     axios
       .put(`http://localhost:3000/api/messages/${id}`, {
-        body: { content: content, title: title },
+        body: { content: textUpdateContent, title: textUpdateTitle },
         headers: {
           Authorization: "Bearer " + Cookies.get("jwt"),
           "Content-Type": "multipart/form-data,application/json",
@@ -133,7 +124,7 @@ export default function Message() {
         return response.json();
       })
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setUsers(data);
       });
   };
@@ -148,10 +139,7 @@ export default function Message() {
   buttons.forEach((button) => {
     button.onclick = function () {
       const areaContent = this.parentNode;
-      console.log(areaContent);
-
       const publications = areaContent.querySelectorAll(".publication");
-      console.log(publications);
 
       publications.forEach((publication) => {
         publication.classList.toggle("show");
@@ -160,8 +148,6 @@ export default function Message() {
   });
 
   const btns = Array.from(document.querySelectorAll(".btn.publication"));
-
-  console.log(btns);
 
   btns.forEach((button) => {
     button.onclick = function () {
@@ -211,8 +197,8 @@ export default function Message() {
   return (
     <section className="comment_container">
       {messages.map((message) => (
-        <div className="message">
-          <div className="info-userpublisher">
+        <div className="message" key={message.id}>
+          <div className="info-messagepublisher">
             {users.map(
               (user) =>
                 user.id === message.UserId && (
@@ -227,7 +213,7 @@ export default function Message() {
             {users.map(
               (user) =>
                 user.id === message.UserId && (
-                  <p key={message.createdAt}>
+                  <p key={user.firstname}>
                     Publié par{" "}
                     <strong style={{ fontSize: "15px" }}>
                       {user.firstname}
@@ -240,14 +226,13 @@ export default function Message() {
                   </p>
                 )
             )}
-            <p key={message.updatedAt}>
-              {`Mis à jour le : ${new Intl.DateTimeFormat("fr-FR").format(
-                new Date(message.updatedAt)
-              )}`}
-            </p>
+                  <p>
+                  {`Mis à jour le : ${new Intl.DateTimeFormat("fr-FR").format(
+                  new Date(message.updatedAt)
+                  )}`}
+                  </p>
           </div>
 
-        
           <div className="content-update">
             <input
               onChange={(e) => setTextUpdateTitle(e.target.value)}
@@ -273,34 +258,35 @@ export default function Message() {
             <h1>{message.title}</h1>
             <h2>{message.content}</h2>
             {message.attachment !== null && (
+              <a href={message.attachment}>
               <img
                 src={message.attachment}
                 alt="attachment"
                 defaultValue={message.attachment}
-                key={message.attachment}
+
               ></img>
+              </a>
             )}
           </div>
 
-      
           {(message.UserId === userId || decodedToken.isAdmin === true) && (
-            <FontAwesomeIcon className="edit" icon={faEdit} />
+            <FontAwesomeIcon className="edit" icon={faEdit} key={message.buttonEdit}/>
           )}
 
-
-          {message.UserId === userId || decodedToken.isAdmin === true && (
+          {(message.UserId === userId || decodedToken.isAdmin === true) && (
             <FontAwesomeIcon
               onClick={() => deleteMessage(message.id)}
               icon={faTrashCan}
               className="delete"
+            
             />
           )}
-
 
           <FontAwesomeIcon
             className="btn-comment"
             icon={faComments}
             style={{ height: "20px", cursor: "pointer" }}
+          
           />
           {message.Comments.length}
 
@@ -314,6 +300,7 @@ export default function Message() {
                 : "like"
             }
             icon={faThumbsUp}
+          
           ></FontAwesomeIcon>
           {message.likes}
 
@@ -325,18 +312,10 @@ export default function Message() {
                 : "dislike"
             }
             icon={faThumbsDown}
+    
           ></FontAwesomeIcon>
 
           {message.dislikes}
-
-          {/* <div className="btn-seemore">
-            <FontAwesomeIcon
-              className="btn-more"
-              onClick={() => navigate(`/publication/${message.id}`)}
-              icon={faPlus}
-              style={{ height: "20px", cursor: "pointer" }}
-            />
-          </div> */}
 
           <div className="reply-container">
             <div className="createComment">
@@ -349,12 +328,13 @@ export default function Message() {
                 onChange={(e) => setTextUpdateComment(e.target.value)}
               />
             </div>
-     
+
             <div className="btn-reply">
               <FontAwesomeIcon
                 icon={faReply}
                 style={{ cursor: "pointer" }}
                 onClick={() => CommentMessage(message.id)}
+         
               />
             </div>
           </div>
@@ -366,19 +346,21 @@ export default function Message() {
                   {users.map(
                     (user) =>
                       user.id === comment.UserId && (
-                        <div className="publisher-infos">
+                        <div
+                          className="comment-publisheravatar"
+                          key={user.attachment}
+                        >
                           <img
                             src={user.attachment}
-                            alt="avatar"
-                            id="avatar"
-                            key={user.attachment}
+                            alt="userpicture"
+                            id="avatar"                 
                           />
                         </div>
                       )
                   )}
-                  <div style={{ width: "100%" }}>
+                  <div style={{ width: "100%" }} key={comment.userpublisher}>
                     <div className="comment-infopublisher">
-                      <div style={{ width: "85%" }} key={message.infopublisher}>
+                      <div style={{ width: "85%" }}>
                         {users.map(
                           (user) =>
                             user.id === comment.UserId && (
@@ -394,22 +376,26 @@ export default function Message() {
                             new Date(message.createdAt)
                           )}`}
                         </p>
-                      </div>
-                      <div className="delete">
-                        {users.map(
+                      </div> 
+                      
+                      {users.map(
                           (user) =>
                             user.id === comment.UserId && (
+                      <div className="delete" key={user.btnDelete}>
+                       
                               <FontAwesomeIcon
                                 onClick={() => deleteComment(comment.id)}
                                 icon={faTrashCan}
                                 className="delete"
                                 style={{ cursor: "pointer" }}
+                                
                               />
-                            )
+                             
+                      
+                      </div>)
                         )}
-                      </div>
                     </div>
-                    <p>{comment.content}</p>
+                    <p key={comment.content}>{comment.content}</p>
                   </div>
                 </div>
               )
@@ -417,5 +403,5 @@ export default function Message() {
         </div>
       ))}
     </section>
-  );
+  )
 }

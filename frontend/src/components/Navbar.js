@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import Logout from "./Logout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPeopleRoof, faSignOut, faUser, faUsersViewfinder } from "@fortawesome/free-solid-svg-icons";
+import {faSignOut, faUser, faUsersViewfinder } from "@fortawesome/free-solid-svg-icons";
 import img from "../assets/img/icon.svg";
-import "../components/Navbar.scss";
+import "../styles/Navbar.scss";
 
 export default function Navbar() {
   const [matches, setMatches] = useState(
@@ -29,7 +29,6 @@ export default function Navbar() {
       if (!token) {
         return;
       }
-
       const base64Url = token.split(".")[1];
       // console.log(base64Url);
 
@@ -59,7 +58,7 @@ export default function Navbar() {
   const [navSize, setnavSize] = useState("10rem");
   const [navColor, setnavColor] = useState("transparent");
   const listenScrollEvent = () => {
-    window.scrollY > 10 ? setnavColor("#d05159") : setnavColor("transparent");
+    window.scrollY > 10 ? setnavColor("transparent") : setnavColor("#d05159");
     window.scrollY > 10 ? setnavSize("8rem") : setnavSize("7rem");
   };
   useEffect(() => {
@@ -113,7 +112,7 @@ export default function Navbar() {
                 <FontAwesomeIcon
                   className="icon-signout"
                   icon={faSignOut}
-                  style={{ height: "30px",color:"white" }}
+                  style={{ height: "30px",color:"black" }}
                   onClick={Logout}
                 />
               </div>

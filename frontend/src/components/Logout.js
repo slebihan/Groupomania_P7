@@ -10,6 +10,6 @@ const Logout = function () {
       Cookies.remove("jwt", success.data.token, { secure: true });
     });
 
-  return <div></div>;
+  return;
 };
 export default Logout;
