@@ -6,7 +6,7 @@ Server: Node.js, Express, Sequelize
 Frontend: React, Sass
 
 Pour la database, télécharger dans backend/db/groupomania.sql
-changer les informations dans le fichier db.js (le mot de passe "mysql" après 'root' à changer )
+changer les informations dans backend/db/db.js et aussi dans backend/config/config.json (le mot de passe "mysql")
 
 Back-end
 

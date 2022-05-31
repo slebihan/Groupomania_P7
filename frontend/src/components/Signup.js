@@ -45,7 +45,7 @@ export default function Signup() {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit}>
+    <form onSubmit={formik.handleSubmit} className="infos-1">
       <div className="input-container">
         <label htmlFor="firstname">Prénom </label>
         <input

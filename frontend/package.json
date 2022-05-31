@@ -12,11 +12,12 @@
     "axios": "^0.27.2",
     "formik": "^2.2.9",
     "js-cookie": "^3.0.1",
+    "nth-check": "^2.1.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
     "react-input-emoji": "^4.1.0",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^5.0.0",
     "sass": "^1.52.1",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11"

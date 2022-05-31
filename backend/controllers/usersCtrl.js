@@ -11,7 +11,8 @@ exports.register = (req, res) => {
   var lastname = req.body.lastname;
   var password = req.body.password;
 
-  if (email == "" || firstname == "" || password == "" || lastname == "") {
+
+  if (email === "" || firstname === "" || password === "" || lastname === "") {
     return res.status(400).json({ error: " il manque des informations ! " });
   }
 
