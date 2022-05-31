@@ -1,7 +1,6 @@
 .logo-home {
     width: 100%;
     padding-left: 0px;
-    position: relative;
     margin-bottom: 50px;
     position: relative;
     display: flex;
@@ -94,42 +93,28 @@ button{
     margin-top: 20px;
     margin-bottom: 50px;
 }
-
-.active{
-    background: rgb(248,248,248);
-    color:#333;
-}
 .input-container{
     display: flex;
     flex-direction: column;
     margin:10px 0px 10px 0px;
 }
-.infos-1,.infos-2{
+.infos-1{
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     width: 100%;
 }
 
-
-.form{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+.form-container{
+    padding: 50px;
+    .form{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+}
 }
 #email,#password{
     margin-bottom: 20px;
 }
 
-/* /-----/ */
-.userlist-container{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    justify-items: center;
-    
-}
-
-li{
-    margin: 20px 0px 20px 0px;
-}

@@ -191,7 +191,7 @@ export default function Message() {
           {message.User.id && (
           
           <div className="info-messagepublisher">
-            
+                  <div className="flex">
                   <img
                     src={message.User.attachment}
                     alt="userpicture"
@@ -209,7 +209,7 @@ export default function Message() {
                       new Date(message.createdAt)
                     )}`}
                   </p>
-                
+                  </div>
           
                   <p>
                   {`Mis à jour le : ${new Intl.DateTimeFormat("fr-FR").format(

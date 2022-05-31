@@ -84,13 +84,15 @@
       display: flex;
       border-bottom: 1px solid black;
       padding: 10px 10px 10px 10px;
-      width: auto;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
+      justify-content: space-between;
+      .flex{
+        display: flex;
+      }
       p:nth-child(3){
           display: flex;
-          width: 100%;
           justify-content: flex-end;
           
       }

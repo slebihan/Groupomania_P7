@@ -12,17 +12,6 @@
     width: 100vw;
 }
 
-.userlist-information{
-    text-align: center;
-    margin: 30px;
-    list-style: none;
-    padding: 10px;
-    background-color: #fcd6d5;
-    width: 80%;
-    border-radius: 50px;
-    box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
-}
-
 .cardcontainer-infosUser{
     display: flex;
     justify-content: center;
@@ -34,7 +23,7 @@
     flex-direction: column;
     align-items: center;
     width: auto;
-    background-color: white;
+    background-color: #eeeeee;
     border-radius: 20px;
     padding: 20px;
     box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
@@ -56,9 +45,9 @@
     display: flex;
     flex-direction: column;
     align-items:center;
-    background-color: white;
+    background-color: #eeeeee;
     border-radius: 20px;
-    width: 70%;
+    width: 60%;
     button{
         margin-bottom: 50px;
         width: 100%;

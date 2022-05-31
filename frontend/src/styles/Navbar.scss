@@ -5,7 +5,8 @@
     align-items: center;
     text-align: center;
     img{
-        width: 40%;
+        width: 100px;
+        height: 100px;
     }
 }
 .user-display{
@@ -53,7 +54,6 @@
 .container-corner {
     position: absolute;
     right: 40px;
-    top: 40px;
 }
 .btn-circle {
     background: #FD2D01;
@@ -190,6 +190,8 @@
     nav{
         width: 100%;
         padding: 40px;
+        display: flex;
+        align-items: center;
     }
     .logo-small{
         display: flex;

@@ -56,6 +56,9 @@ export default function Signup() {
           onChange={formik.handleChange}
           value={formik.values.firstname || ""}
         />
+         {formik.errors.email && formik.touched.email &&
+          <div>{formik.errors.email}</div>
+        }
       </div>
 
       <div className="input-container">
@@ -68,6 +71,9 @@ export default function Signup() {
           onChange={formik.handleChange}
           value={formik.values.lastname || ""}
         />
+         {formik.errors.email && formik.touched.email &&
+          <div>{formik.errors.email}</div>
+        }
       </div>
 
       <div className="input-container">

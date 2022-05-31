@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import axios from "axios";
+import "../styles/Dashboard.scss"
 import Navbar from "./Navbar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
@@ -53,7 +54,7 @@ export default function Dashboard() {
     let value = e.target.value;
     setSearchTerm(value);
   };
-  console.log(searchTerm);
+
 
   function deleteAccountbyAdmin(id) {
     if (
@@ -76,6 +77,7 @@ export default function Dashboard() {
       <Navbar />
       <div className="title-container">
         <h1>Dashboard</h1>
+        <label>
         <input
           type="text"
           name="searchBar"
@@ -83,19 +85,22 @@ export default function Dashboard() {
           placeholder="Rechercher"
           onChange={handleSearchTerm}
         />
+        </label>
         <label
-          htmlFor="username"
+          htmlFor="searchLastName"
           style={{ marginLeft: "30px", marginRight:"30px" }}
         >
           Recherche par Nom de Famille
-        </label>
+        
         <input
+          id="seachLastName"
           type="range"
           min="1"
           max="20"
           defaultValue={rangeValue}
           onChange={(e) => setRangeValue(e.target.value)}
         ></input>
+        </label>
       </div>
 
       <div className="userlist-container">
@@ -106,18 +111,21 @@ export default function Dashboard() {
           .sort((a, b) => a.lastname.localeCompare(b.lastname))
           .slice(0, rangeValue)
           .map((user) => (
-            <ul className="userlist-information" key={user.id}>
+            
+              <div key={user.id} className="userlist-information">
               <img src={user.attachment} alt="avatar" id="avatar" />
+              <ul>
               <li>Prénom : {user.firstname}</li>
               <li>Nom : {user.lastname}</li>
               <li>Email : {user.email}</li>
+              </ul>
               <FontAwesomeIcon
                 cursor="pointer"
                 fontSize={20}
                 icon={faTrashCan}
                 onClick={() => deleteAccountbyAdmin(user.id)}
               />
-            </ul>
+              </div>
           ))}
       </div>
     </React.Fragment>

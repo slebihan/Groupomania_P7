@@ -26,6 +26,7 @@ export default function Home() {
         <img src={img} alt="Logo" />
       </div>
 
+      <div className="form-container">
       <div className="form">
 
         <div className="contBtn">
@@ -47,6 +48,7 @@ export default function Home() {
                 <Signup />
             </div>
           )}
+        </div>
         </div>
         
       </div>

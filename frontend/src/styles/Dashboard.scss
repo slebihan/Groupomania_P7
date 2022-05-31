@@ -1,0 +1,21 @@
+.userlist-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    .userlist-information{
+            text-align: center;
+            margin: 30px;
+            padding: 10px;
+            background-color: #fcd6d5;
+            width: 80%;
+            border-radius: 50px;
+            box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
+        }
+    ul{
+        list-style: none;
+        padding-left: 0px;
+    }
+    li{
+        margin: 20px 0px 20px 0px;
+    }
+}

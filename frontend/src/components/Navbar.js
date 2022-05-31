@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import Cookies from "js-cookie";
 import Logout from "./Logout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -81,8 +81,17 @@ export default function Navbar() {
               transition: "all 1s",
             }}
           >
+
             <div className="logo">
+            {firstname !== "Admin" ? 
+              <NavLink to={`/UserProfile/${params.userId}`}>
               <img src={img} alt="Logo" />
+              </NavLink>
+                :
+              <NavLink to={`/UserProfile/Admin`}>
+              <img src={img} alt="Logo" />
+              </NavLink>
+            }
             </div>
             <div className="user-display">
               <h1> Bienvenue {firstname}</h1>
@@ -126,6 +135,17 @@ export default function Navbar() {
       {!matches && (
         <header id="navbar-small">
           <nav>
+          <div className="logo">
+            {firstname !== "Admin" ? 
+              <NavLink to={`/UserProfile/${params.userId}`}>
+              <img src={img} alt="Logo" />
+              </NavLink>
+                :
+              <NavLink to={`/UserProfile/Admin`}>
+              <img src={img} alt="Logo" />
+              </NavLink>
+            }
+            </div>
             <div className="container-corner">
               <div
                 className={isOpen ? "circle-menu circle-anim" : "circle-menu"}
