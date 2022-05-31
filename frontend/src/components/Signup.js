@@ -34,8 +34,6 @@ export default function Signup() {
       .required("Ce champ est requis")
       .matches(
         /(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,})(?:.*[0-9]{1,3})(?:.*[+@=*&$-]{0,1})./,
-        // /^(?=.{5,10}$)([A-Z].{1,})([a-z]{1,})([0-9]{1,})([^Â-ÿ])/,
-        // /^(?=.[^À-ÖØ-öø-ÿ.]{6,10}$)(?=.*?[a-z])(?=.*?[A-Z])(?=.*?[0-9])(?=.*?\W).*$/,
         "Le mot de passe est de 8 à 15 caractères, doit contenir une majuscule,une minuscule,un chiffre et un caractère spécial (+@=*&$-)"
       ),
   });
@@ -94,6 +92,7 @@ export default function Signup() {
           name="password"
           type="password"
           placeholder="Password"
+          autoComplete="off"
           onChange={formik.handleChange}
           value={formik.values.password || ""}
         />
@@ -101,7 +100,7 @@ export default function Signup() {
           <div>{formik.errors.password}</div>
         ) : null}
       </div>
-      <button type="submit">S'inscrire</button>
+      <button type="submit" aria-label="s'inscrire">S'inscrire</button>
     </form>
   );
 }

@@ -67,10 +67,11 @@ export default function Login() {
                 type="password"
                 id="password"
                 placeholder="Password"
+                autoComplete="off"
                 onChange={formik.handleChange}
                 value={formik.values.password || ''}
                 />
-                <button type='submit'>Se Connecter</button>
+                <button type='submit' aria-label="Se Connecter">Se Connecter</button>
               </form>
               
         )

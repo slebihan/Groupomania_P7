@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useFormik } from "formik";
+import {useRef} from 'react';
 
 import Navbar from "./Navbar";
 import "../styles/UserProfileEdit.scss";
@@ -25,7 +26,6 @@ export default function UserProfileEdit() {
     const base64 = base64Url.replace("-", "+").replace("_", "/");
     // console.log(base64);
     const decodedToken = JSON.parse(window.atob(base64));
-    console.log(decodedToken.userId);
 
     if (decodedToken.userId !== userId) {
       window.location.assign("http://localhost:3001/api/logout");
@@ -90,14 +90,11 @@ export default function UserProfileEdit() {
       let formData = new FormData();
 
       formData.append("firstname", Firstnamevalue);
-
       formData.append("lastname", Lastnamevalue);
-
       formData.append("email", EmailValue);
       formData.append("password", password);
-      console.log(password);
       formData.append("attachment", values.attachment);
-      console.log(values.attachment);
+   
 
       if (
         !passwordRegExp.test(values.password) ||
@@ -125,7 +122,7 @@ export default function UserProfileEdit() {
               alert("Votre profil a bien été mis à jour");
               setAvatar();
               formik.resetForm();
-              formik.setFieldValue("");
+              formik.resetForm({attachment:null})
             })
             .catch((error) => alert("error"));
         }
@@ -162,7 +159,6 @@ export default function UserProfileEdit() {
           }
         )
         .then((success) => {
-          console.log("success");
           setAvatar();
         })
         .catch((err) => console.log(err));
@@ -170,6 +166,13 @@ export default function UserProfileEdit() {
       return;
     }
   }
+
+  const inputRef = useRef(null);
+
+
+  const resetFileInput = () => {
+    inputRef.current.value = null;
+  };
 
   return (
     <div className="container-profil">
@@ -182,7 +185,7 @@ export default function UserProfileEdit() {
           <div className="card-infosUser-display">
             <div className="avatar-display">
               <img src={avatar} alt="avatar" id="avatar" />
-              <button onClick={deleteImageProfil} className="deleteImageProfil">
+              <button onClick={deleteImageProfil} aria-label="Suppression Avatar" className="deleteImageProfil">
                 Supprimer mon avatar
               </button>
             </div>
@@ -231,6 +234,7 @@ export default function UserProfileEdit() {
           <label htmlFor="Password">Password </label>
           <input
             id="password"
+            autoComplete="off"
             name="password"
             type="password"
             onChange={formik.handleChange}
@@ -238,6 +242,7 @@ export default function UserProfileEdit() {
           />
           <input
             id="attachment"
+            ref={inputRef}
             type="file"
             name="image"
             onChange={(event) =>
@@ -246,8 +251,8 @@ export default function UserProfileEdit() {
           ></input>
 
           <div className="btnActionprofil">
-            <button type="submit">Modifier mon compte</button>
-            <button onClick={deleteAccount}>Supprimer mon compte</button>
+            <button type="submit" onClick={resetFileInput} aria-label="modification du compte">Modifier mon compte</button>
+            <button onClick={deleteAccount} aria-label="suppression du compte">Supprimer mon compte</button>
           </div>
         </form>
       </div>

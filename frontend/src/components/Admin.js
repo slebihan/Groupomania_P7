@@ -19,7 +19,7 @@ const Admin = (req, res) => {
       const base64 = base64Url.replace("-", "+").replace("_", "/");
       // console.log(base64);
       const decodedToken = JSON.parse(window.atob(base64));
-      console.log(decodedToken);
+    
 
       if (decodedToken.isAdmin !== true) {
         window.location.assign("http://localhost:3001/api/logout");

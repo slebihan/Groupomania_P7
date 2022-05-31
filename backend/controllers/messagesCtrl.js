@@ -41,7 +41,8 @@ exports.getAllposts = async (req, res, next) => {
     include: [
       { model: models.Like },
       { model: models.Dislike },
-      { model : models.Comment }
+      { model : models.Comment },
+      {model : models.User}
     ]
   })
     .then((success) => res.status(200).json(success))

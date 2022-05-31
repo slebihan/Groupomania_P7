@@ -92,6 +92,7 @@ export default function Navbar() {
               <div className="profil">
                 {firstname !== "Admin" ? (
                 <button
+                  aria-label="user-profil"
                   className="bouton-nav"
                   onClick={() =>
                     window.open(`/UserProfileEdit/` + params.userId, "_self")
@@ -100,6 +101,7 @@ export default function Navbar() {
                   Mon profil
                 </button>) : (
                      <button
+                     aria-label="dashboard"
                      className="bouton-nav"
                      onClick={() =>
                        window.open(`/UserProfile/Admin/Dashboard`, "_self")

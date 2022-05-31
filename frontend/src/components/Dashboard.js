@@ -19,7 +19,7 @@ export default function Dashboard() {
     const base64 = base64Url.replace("-", "+").replace("_", "/");
     // console.log(base64);
     const decodedToken = JSON.parse(window.atob(base64));
-    console.log(decodedToken);
+    
 
     if (decodedToken.isAdmin !== true) {
       window.location.assign("http://localhost:3001/api/logout");
@@ -31,7 +31,7 @@ export default function Dashboard() {
 
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  useEffect(() => {
+  const fetchUser = useEffect(() => {
     const fetchData = () => {
       fetch("http://localhost:3000/api/UserProfile/Admin", {
         headers: {
@@ -66,6 +66,7 @@ export default function Dashboard() {
           },
         })
         .then(() => alert("Le compte de l'utilisateur a bien été supprimé"))
+        .then(()=> fetchUser())
         .catch((err) => console.log(err));
     }
   }

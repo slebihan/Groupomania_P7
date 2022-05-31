@@ -40,15 +40,11 @@ export default function Home() {
         <div className="container">
           {stateHome === 1 ? (
             <div className="contenu login">
-              <div className="input-group">
                 <Login />
-              </div>
             </div>
           ) : (
             <div className="contenu signup">
-              <div className="input-group">
                 <Signup />
-              </div>
             </div>
           )}
         </div>

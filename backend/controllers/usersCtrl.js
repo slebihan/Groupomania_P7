@@ -167,12 +167,18 @@ exports.updateUser = (req, res, next) => {
 
 exports.deleteImageProfil = (req, res, next) => {
   const userId = req.params.userId;
+  
 
   models.User.findOne({ where: { id: userId } }).then((user) => {
+    const filename = user.attachment.split("/images/")[1];
     if (
-      user.attachment === null ||
-      `${req.protocol}://${req.get("host")}/images/default-avatar-300x300.png`
+      user.attachment !== null && filename !== "default-avatar-300x300.png"
     ) {
+
+      fs.unlink(`images/${filename}`, () => {
+            console.log("Avatar mis à jour");
+             });
+      console.log('youhou')
       models.User.update(
         {
           attachment: `${req.protocol}://${req.get(
@@ -189,13 +195,12 @@ exports.deleteImageProfil = (req, res, next) => {
         .catch((error) => res.status(500).json({ error }));
     } else {
       const filename = user.attachment.split("/images/")[1];
-      if (filename === "default-avatar-300x300.png") {
-        console.log("Votre avatar a déjà été supprimé");
-      } else {
-        fs.unlink(`images/${filename}`, () => {
-          console.log("Avatar mis à jour");
-        });
-      }
+      console.log(filename);
+      console.log('zut')
+      
+          if (filename === "default-avatar-300x300.png") {
+              console.log("Votre avatar a déjà été supprimé");
+            } 
     }
   });
 };

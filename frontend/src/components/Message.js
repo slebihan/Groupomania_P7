@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../styles/Message.scss";
-
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -28,16 +27,15 @@ export default function Message() {
   const base64 = base64Url.replace("-", "+").replace("_", "/");
   // console.log(base64);
   const decodedToken = JSON.parse(window.atob(base64));
-  console.log(decodedToken);
 
   const userId = decodedToken.userId;
-  console.log(userId);
+
 
   const [messages, setMessages] = useState([]);
 
   const messageData = (req, res, next) => {
     axios.get("http://localhost:3000/api/messages").then((res) => {
-      console.log(res.data[3]);
+      console.log(res.data)
       setMessages(res.data);
     });
   };
@@ -50,7 +48,6 @@ export default function Message() {
 
   const commentData = (req, res, next) => {
     axios.get("http://localhost:3000/api/comments").then((res) => {
-      console.log(res.data[2]);
       setComments(res.data);
     });
   };
@@ -59,9 +56,8 @@ export default function Message() {
     commentData();
   }, []);
 
+  
   function like(id) {
-    console.log(id);
-
     axios
       .post(`http://localhost:3000/api/messages/${id}/like`, {
         userId: userId,
@@ -73,8 +69,6 @@ export default function Message() {
   }
 
   function unlike(id) {
-    console.log(id);
-
     axios
       .post(`http://localhost:3000/api/messages/${id}/unlike`, {
         userId: userId,
@@ -124,7 +118,6 @@ export default function Message() {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setUsers(data);
       });
   };
@@ -134,7 +127,6 @@ export default function Message() {
   }, []);
 
   const buttons = Array.from(document.querySelectorAll(".edit"));
-  console.log(buttons);
 
   buttons.forEach((button) => {
     button.onclick = function () {
@@ -152,8 +144,6 @@ export default function Message() {
   btns.forEach((button) => {
     button.onclick = function () {
       const message = this.parentNode;
-      console.log(message);
-
       const messageContent = message.querySelectorAll(".publication");
 
       messageContent.forEach((publication) => {
@@ -198,25 +188,20 @@ export default function Message() {
     <section className="comment_container">
       {messages.map((message) => (
         <div className="message" key={message.id}>
+          {message.User.id && (
+          
           <div className="info-messagepublisher">
-            {users.map(
-              (user) =>
-                user.id === message.UserId && (
+            
                   <img
-                    src={user.attachment}
+                    src={message.User.attachment}
                     alt="userpicture"
                     id="avatar"
-                    key={user.attachment}
                   />
-                )
-            )}
-            {users.map(
-              (user) =>
-                user.id === message.UserId && (
-                  <p key={user.firstname}>
+
+                  <p>
                     Publié par{" "}
                     <strong style={{ fontSize: "15px" }}>
-                      {user.firstname}
+                      {message.User.firstname}
                     </strong>
                     <br />
                     le :{" "}
@@ -224,14 +209,14 @@ export default function Message() {
                       new Date(message.createdAt)
                     )}`}
                   </p>
-                )
-            )}
+                
+          
                   <p>
                   {`Mis à jour le : ${new Intl.DateTimeFormat("fr-FR").format(
                   new Date(message.updatedAt)
                   )}`}
                   </p>
-          </div>
+          </div> )}
 
           <div className="content-update">
             <input
@@ -250,6 +235,7 @@ export default function Message() {
               placeholder="Entrez votre message"
             ></textarea>
             <button
+              aria-label="modification"
               className="btn publication"
               onClick={() => modifyMessage(message.id)}
             >
@@ -270,7 +256,7 @@ export default function Message() {
           </div>
 
           {(message.UserId === userId || decodedToken.isAdmin === true) && (
-            <FontAwesomeIcon className="edit" icon={faEdit} key={message.buttonEdit}/>
+            <FontAwesomeIcon className="edit" icon={faEdit}/>
           )}
 
           {(message.UserId === userId || decodedToken.isAdmin === true) && (
@@ -313,7 +299,7 @@ export default function Message() {
             }
             icon={faThumbsDown}
     
-          ></FontAwesomeIcon>
+          />
 
           {message.dislikes}
 
@@ -344,11 +330,11 @@ export default function Message() {
               message.id === comment.MessageId && (
                 <div className="comments" key={comment.id}>
                   {users.map(
-                    (user) =>
+                    (user,index) =>
                       user.id === comment.UserId && (
                         <div
                           className="comment-publisheravatar"
-                          key={user.attachment}
+                          key={index}
                         >
                           <img
                             src={user.attachment}
@@ -358,13 +344,13 @@ export default function Message() {
                         </div>
                       )
                   )}
-                  <div style={{ width: "100%" }} key={comment.userpublisher}>
-                    <div className="comment-infopublisher">
-                      <div style={{ width: "85%" }}>
-                        {users.map(
-                          (user) =>
+                    <div style={{ width: "100%" }}>
+                      <div className="comment-infopublisher">
+                        <div style={{ width: "85%" }}>
+                          {users.map(
+                          (user,index) =>
                             user.id === comment.UserId && (
-                              <p key={user.firstname}>
+                              <p key={index}>
                                 Publié par <strong>{user.firstname}</strong>,
                               </p>
                             )
@@ -379,9 +365,9 @@ export default function Message() {
                       </div> 
                       
                       {users.map(
-                          (user) =>
+                          (user,index) =>
                             user.id === comment.UserId && (
-                      <div className="delete" key={user.btnDelete}>
+                            <div className="delete" key={index}>
                        
                               <FontAwesomeIcon
                                 onClick={() => deleteComment(comment.id)}
@@ -392,10 +378,10 @@ export default function Message() {
                               />
                              
                       
-                      </div>)
+                            </div>)
                         )}
                     </div>
-                    <p key={comment.content}>{comment.content}</p>
+                    <p>{comment.content}</p>
                   </div>
                 </div>
               )

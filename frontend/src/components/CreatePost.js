@@ -1,5 +1,5 @@
 import axios from "axios";
-import React,{useState,useEffect} from "react";
+import React,{useState} from "react";
 import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import InputEmoji from "react-input-emoji";
@@ -8,24 +8,13 @@ import { useParams } from "react-router-dom";
 
 const FormData = require('form-data');
 
-
-
 export default function Post() {
   const id = useParams().userId;
 
-  const [messages, setMessages] = useState([]);
+
   const [contentMessage,setContentMessage] = useState(null)
 
-  const messageData = (req, res, next) => {
-    axios.get("http://localhost:3000/api/messages").then((res) => {
-      console.log(res.data[3]);
-      setMessages(res.data);
-    });
-  };
 
-  useEffect(() => {
-    messageData();
-  }, []);
 
 
   const formik = useFormik({
@@ -38,17 +27,15 @@ export default function Post() {
    onSubmit : (values) => {
      var title = document.getElementById('title').value
      var content = contentMessage
-     console.log(content)
+
      let formData = new FormData()
 
-     console.log(title)
     formData.append('UserId',id)
     
     formData.append('title',title)
     formData.append('content',content)
-    console.log(content)
     formData.append('attachment',values.attachment)
-    console.log(values.attachment)
+
 
     axios
       .post("http://localhost:3000/api/messages",formData,{
@@ -88,8 +75,11 @@ export default function Post() {
           onChange={setContentMessage}
           placeholder="Tapez votre message"
         />
+
         <div className="choose-file">
+          <label htmlFor="choose-file"> Choisir un fichier
           <input
+            id="choose-file"
             type="file"
             name="image"
             onChange={(event) =>
@@ -97,10 +87,11 @@ export default function Post() {
             }
             style={{ padding: "10px" }}
           />
+          </label>
         </div>
 
         <div className="bouton-container">
-          <button type="submit">Publier</button>
+          <button type="submit" aria-label="Publier">Publier</button>
         </div>
       </form>
     </section>
