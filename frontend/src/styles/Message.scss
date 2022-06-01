@@ -28,37 +28,36 @@
     h2 {
       font-size: 15px;
     }
-    .show{
+    .show {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-    .hide{
-      display: none;
-    }
-    input,textarea,button{
+    input,
+    textarea,
+    button {
       display: none;
       margin-top: 20px;
     }
-    .input-title,.content{
+    .input-title,
+    .content {
       padding: 0px;
       width: 200px;
     }
-    .content-update{
+    .content-update {
       display: flex;
       flex-direction: column;
       align-items: center;
-
     }
-    .comments{
+    .comments {
       display: flex;
-      margin:0px 10px 10px 10px;
+      margin: 0px 10px 10px 10px;
       background-color: rgba(128, 128, 128, 0.257);
       border-radius: 50px;
-      p{
+      p {
         font-size: 12px;
       }
-      .comment-publisheravatar{
+      .comment-publisheravatar {
         display: flex;
         align-items: center;
       }
@@ -73,8 +72,7 @@
       margin: 10px;
     }
     .btn-like-active,
-    .btn-dislike-active 
-    {
+    .btn-dislike-active {
       cursor: pointer;
       margin: 10px;
       height: 20px;
@@ -88,13 +86,12 @@
       overflow: hidden;
       text-overflow: ellipsis;
       justify-content: space-between;
-      .flex{
+      .flex {
         display: flex;
       }
-      p:nth-child(3){
-          display: flex;
-          justify-content: flex-end;
-          
+      p:nth-child(3) {
+        display: flex;
+        justify-content: flex-end;
       }
     }
     #avatar {
@@ -103,28 +100,24 @@
       margin-right: 10px;
     }
   }
-.reply-container{
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-bottom: 20px;
-}
-.createComment{
-  display: flex;
-  justify-content: center;
-  width: 90%;
-   textarea {
+  .reply-container {
     display: flex;
-    width: 95%;
-    padding: 0px;
+    width: 100%;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .createComment {
+    display: flex;
+    justify-content: center;
+    width: 90%;
+    textarea {
+      display: flex;
+      width: 95%;
+      padding: 0px;
+    }
   }
 }
-}
-.comment-infopublisher{
+.comment-infopublisher {
   display: flex;
-  :nth-child(1){
-    margin-right: 5px;
-  }
 }
- 

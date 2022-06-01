@@ -4,22 +4,28 @@ import { useFormik } from "formik";
 import Cookies from "js-cookie";
 import InputEmoji from "react-input-emoji";
 import "../styles/CreatePost.scss";
-import { useParams } from "react-router-dom";
 
 const FormData = require('form-data');
 
 export default function Post() {
-  const id = useParams().userId;
 
+  const token = Cookies.get("jwt");
+  // terminate operation if token is invalid
+  // Split the token and taken the second
+  const base64Url = token.split(".")[1];
+  // console.log(base64Url);
+  // Replace "-" with "+"; "_" with "/"
+  const base64 = base64Url.replace("-", "+").replace("_", "/");
+  // console.log(base64);
+  const decodedToken = JSON.parse(window.atob(base64));
 
+  const userId = decodedToken.userId;
+  
   const [contentMessage,setContentMessage] = useState(null)
-
-
-
 
   const formik = useFormik({
    initialValues : {
-    UserId: id,
+    UserId: userId,
     content: "",
     title: '', 
     attachment: null,
@@ -30,7 +36,7 @@ export default function Post() {
 
      let formData = new FormData()
 
-    formData.append('UserId',id)
+    formData.append('UserId',userId)
     
     formData.append('title',title)
     formData.append('content',content)

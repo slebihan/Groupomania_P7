@@ -197,7 +197,6 @@ export default function Message() {
                     alt="userpicture"
                     id="avatar"
                   />
-
                   <p>
                     Publié par{" "}
                     <strong style={{ fontSize: "15px" }}>
@@ -307,7 +306,6 @@ export default function Message() {
             <div className="createComment">
               <textarea
                 type="text"
-                className="createComment"
                 cols="30"
                 rows="5"
                 placeholder="Commenter"
@@ -359,7 +357,7 @@ export default function Message() {
                         <p>
                           le{" "}
                           {`${new Intl.DateTimeFormat("fr-FR").format(
-                            new Date(message.createdAt)
+                            new Date(comment.createdAt)
                           )}`}
                         </p>
                       </div> 

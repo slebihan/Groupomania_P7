@@ -223,7 +223,7 @@ export default function UserProfileEdit() {
             onChange={formik.handleChange}
             value={formik.values.lastname || ""}
           />
-          <label htmlFor="Email">Email </label>
+          <label htmlFor="email">Email </label>
           <input
             id="email"
             name="email"
@@ -231,7 +231,7 @@ export default function UserProfileEdit() {
             onChange={formik.handleChange}
             value={formik.values.email || ""}
           />
-          <label htmlFor="Password">Password </label>
+          <label htmlFor="password">Password </label>
           <input
             id="password"
             autoComplete="off"
@@ -240,6 +240,7 @@ export default function UserProfileEdit() {
             onChange={formik.handleChange}
             value={formik.values.password || ""}
           />
+          <label> Choisir son avatar
           <input
             id="attachment"
             ref={inputRef}
@@ -248,7 +249,7 @@ export default function UserProfileEdit() {
             onChange={(event) =>
               formik.setFieldValue("attachment", event.target.files[0])
             }
-          ></input>
+          /></label>
 
           <div className="btnActionprofil">
             <button type="submit" onClick={resetFileInput} aria-label="modification du compte">Modifier mon compte</button>
