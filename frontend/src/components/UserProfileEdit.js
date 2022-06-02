@@ -7,6 +7,7 @@ import {useRef} from 'react';
 
 import Navbar from "./Navbar";
 import "../styles/UserProfileEdit.scss";
+import Footer from "./Footer";
 const FormData = require("form-data");
 
 export default function UserProfileEdit() {
@@ -203,7 +204,6 @@ export default function UserProfileEdit() {
         <form
           name="form"
           className="informations"
-          id="form"
           encType="multipart/form-data"
           onSubmit={formik.handleSubmit}
         >
@@ -257,6 +257,7 @@ export default function UserProfileEdit() {
           </div>
         </form>
       </div>
+      <Footer />
     </div>
   );
 }

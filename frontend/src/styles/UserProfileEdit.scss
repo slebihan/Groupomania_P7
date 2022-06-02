@@ -47,9 +47,11 @@
     align-items:center;
     background-color: #eeeeee;
     border-radius: 20px;
-    width: 60%;
     button{
         margin-bottom: 50px;
+        width: 100%;
+    }
+    #attachment{
         width: 100%;
     }
 }
@@ -60,4 +62,9 @@
 }
 .deleteImageProfil{
     width: 100%;
+}
+.footer-container{
+    h1{
+        font-size: 12px;
+    }
 }

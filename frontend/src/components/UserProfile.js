@@ -4,6 +4,7 @@ import Message from "./Message";
 import { useParams } from "react-router-dom";
 import CreatePost from "./CreatePost";
 import Cookies from "js-cookie";
+import Footer from "./Footer";
 
 export default function UserProfile() {
   const userId = parseInt(useParams().userId);
@@ -33,6 +34,7 @@ export default function UserProfile() {
       <Navbar />
       <CreatePost />
       <Message />
+      <Footer />
     </React.Fragment>
   );
 }
