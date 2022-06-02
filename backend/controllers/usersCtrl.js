@@ -118,7 +118,7 @@ exports.logout = (req, res) => {
   res.send("utilisateur déconnecté");
 };
 
-exports.updateUser = (req, res, next) => {
+exports.updateUser = (req, res) => {
   console.log(req.file);
   const userId = req.params.userId;
   var email = req.body.email;

@@ -22,10 +22,10 @@ export default function Message() {
   // terminate operation if token is invalid
   // Split the token and taken the second
   const base64Url = token.split(".")[1];
-  // console.log(base64Url);
+
   // Replace "-" with "+"; "_" with "/"
   const base64 = base64Url.replace("-", "+").replace("_", "/");
-  // console.log(base64);
+
   const decodedToken = JSON.parse(window.atob(base64));
 
   const userId = decodedToken.userId;
@@ -35,7 +35,7 @@ export default function Message() {
 
   const messageData = (req, res, next) => {
     axios.get("http://localhost:3000/api/messages").then((res) => {
-      console.log(res.data)
+ 
       setMessages(res.data);
     });
   };
@@ -88,7 +88,7 @@ export default function Message() {
             Authorization: "Bearer " + Cookies.get("jwt"),
           },
         })
-        .then(() => console.log("Votre publication a bien été supprimée"))
+        .then(() => alert("Votre publication a bien été supprimée"))
         .then(() => messageData())
         .catch((err) => console.log(err));
     }
@@ -349,7 +349,8 @@ export default function Message() {
                           (user,index) =>
                             user.id === comment.UserId && (
                               <p key={index}>
-                                Publié par <strong>{user.firstname}</strong>,
+                                Publié par{" "} 
+                                <strong style={{marginLeft:"5px"}}>{user.firstname}</strong>
                               </p>
                             )
                         )}

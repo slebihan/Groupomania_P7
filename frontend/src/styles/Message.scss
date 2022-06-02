@@ -2,19 +2,21 @@
   display: flex;
   margin-top: 200px;
   flex-direction: column;
-  width: 100%;
-  height: 100%;
   align-items: center;
   text-align: center;
   .message {
-    width: 80%;
+    width: 75%;
     margin-bottom: 20px;
     border-radius: 20px;
     background-color: white;
     box-shadow: 3px 3px 20px 3px rgba(128, 128, 128, 0.292);
     p {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
       font-size: 10px;
-      text-align: left;
+      align-items: flex-start;
+
     }
     img {
       width: 60%;
@@ -48,14 +50,18 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 10px;
     }
     .comments {
       display: flex;
       margin: 0px 10px 10px 10px;
       background-color: rgba(128, 128, 128, 0.257);
-      border-radius: 50px;
+      border-radius: 30px;
       p {
+        flex-direction: row;
         font-size: 12px;
+
+      
       }
       .comment-publisheravatar {
         display: flex;
@@ -82,17 +88,12 @@
       display: flex;
       border-bottom: 1px solid black;
       padding: 10px 10px 10px 10px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
       justify-content: space-between;
       .flex {
         display: flex;
+        width: 100%;
       }
-      p:nth-child(3) {
-        display: flex;
-        justify-content: flex-end;
-      }
+     
     }
     #avatar {
       width: 40px;
@@ -120,4 +121,9 @@
 }
 .comment-infopublisher {
   display: flex;
+}
+.flex{
+  p:nth-child(1){
+    text-align: left;
+  }
 }

@@ -88,7 +88,6 @@ export default function Dashboard() {
         </label>
         <label
           htmlFor="searchLastName"
-          style={{ marginLeft: "30px", marginRight:"30px" }}
         >
           Recherche par Nom de Famille
         

@@ -3,6 +3,7 @@ import Cookies from "js-cookie";
 import Navbar from "./Navbar";
 import Message from "./Message";
 import CreatePost from "./CreatePost";
+import Footer from "./Footer";
 
 
 const Admin = (req, res) => {
@@ -34,6 +35,7 @@ const Admin = (req, res) => {
       <Navbar />
       <CreatePost />
       <Message/>
+      <Footer />
 
     </React.Fragment>
   );
