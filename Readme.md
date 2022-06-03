@@ -6,13 +6,13 @@ Server: Node.js, Express, Sequelize
 Frontend: React, Sass
 
 Pour la database, télécharger dans backend/db/groupomania.sql
-changer les informations dans backend/db/db.js et aussi dans backend/config/config.json (le mot de passe "mysql")
+changer le mot de passe dans backend/db/db.js et aussi dans backend/config/config.json
 
 Back-end
-
-Installer nodemon.
+Renommer le fichier .env.exemple en .env et modifier "exemple" par ce que vous souhaitez.
 Run npm install.
-Run npm start. Le serveur devrait démarrer sur http://localhost:3000.
+Run nodemon server / npx nodemon server.
+Le serveur devrait démarrer sur http://localhost:3000.
 
 Front-end
 Installer Node.js version 16.15.
