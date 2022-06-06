@@ -29,6 +29,7 @@ export default function Message() {
   const decodedToken = JSON.parse(window.atob(base64));
 
   const userId = decodedToken.userId;
+  const isAdmin = decodedToken.isAdmin
 
 
   const [messages, setMessages] = useState([]);
@@ -95,9 +96,10 @@ export default function Message() {
   }
 
   function modifyMessage(id) {
+    
     axios
       .put(`http://localhost:3000/api/messages/${id}`, {
-        body: { content: textUpdateContent, title: textUpdateTitle },
+        body: { content: textUpdateContent || "" , title: textUpdateTitle || "" },
         headers: {
           Authorization: "Bearer " + Cookies.get("jwt"),
           "Content-Type": "multipart/form-data,application/json",
@@ -219,7 +221,7 @@ export default function Message() {
 
           <div className="content-update">
             <input
-              onChange={(e) => setTextUpdateTitle(e.target.value)}
+              onChange={(e) => setTextUpdateTitle(e.target.value) || ""}
               defaultValue={message.title}
               type="text"
               className="input-title publication"
@@ -227,7 +229,7 @@ export default function Message() {
             />
 
             <textarea
-              onChange={(e) => setTextUpdateContent(e.target.value)}
+              onChange={(e) => setTextUpdateContent(e.target.value) || ""}
               defaultValue={message.content}
               typeof="text"
               className="content  publication"
@@ -255,7 +257,7 @@ export default function Message() {
           </div>
 
           {(message.UserId === userId || decodedToken.isAdmin === true) && (
-            <FontAwesomeIcon className="edit" icon={faEdit}/>
+            <FontAwesomeIcon className="edit" icon={faEdit} />
           )}
 
           {(message.UserId === userId || decodedToken.isAdmin === true) && (
@@ -363,10 +365,9 @@ export default function Message() {
                         </p>
                       </div> 
                       
-                      {users.map(
-                          (user,index) =>
-                            user.id === comment.UserId && (
-                            <div className="delete" key={index}>
+                      
+                            {userId === comment.UserId || decodedToken.isAdmin === true? (
+                            <div className="delete">
                        
                               <FontAwesomeIcon
                                 onClick={() => deleteComment(comment.id)}
@@ -376,9 +377,12 @@ export default function Message() {
                                 
                               />
                              
-                      
-                            </div>)
-                        )}
+                       
+                            </div>) :
+                            (
+                              null
+                            )
+                            }
                     </div>
                     <p>{comment.content}</p>
                   </div>

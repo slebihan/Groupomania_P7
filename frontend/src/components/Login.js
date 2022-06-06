@@ -10,6 +10,11 @@ axios.default.withCredentials = true
 
 export default function Login() {
 
+
+    function timeout(){
+       Cookies.remove("jwt")
+    }
+
     let navigate = useNavigate()
 
     const formik = useFormik({
@@ -31,7 +36,7 @@ export default function Login() {
             .then((res)=>{
             
                 Cookies.set('jwt',res.data.token,{secure:true})
-                
+                setTimeout(timeout,30 * 60 * 1000)
                 if(res.data.user.isAdmin){
                 navigate('/UserProfile/Admin')}
                 else{navigate(`/UserProfile/${res.data.userId}`)}

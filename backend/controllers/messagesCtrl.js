@@ -266,91 +266,17 @@ exports.deleteMessage = async (req, res, next) => {
   })
 }
 
-
-
-//   models.Message.findOne({ where: { id: message_id } })
-//     .then((message) => {
-//     //   if (req.file) {
-//     //     const filename = post.imageUrl.split("/images/")[1];
-//     //     fs.unlink(`images/${filename}`, () => {
-//     //       post
-//     //         .destroy({
-//     //           where: {
-//     //             id: req.params.id,
-//     //           },
-//     //         })
-//     //         .then(() =>
-//     //           res.status(200).json({
-//     //             message: "le post est bien supprimé !",
-//     //           })
-//     //         )
-//     //         .catch((error) =>
-//     //           res.status(400).json({
-//     //             error,
-//     //           })
-//     //         );
-//     //     });
-//     //   }
-//     // })
-
-//       if(message.attachment !== undefined){
-//       const filename = message.attachment.split('/images/')[1]
-//       console.log(filename)
-//       fs.unlink(`images/${filename}`),() =>  {
-
-//       models.Message.destroy({
-//         where: {
-//           id: message_id,
-//         }
-//       })
-//       .then(() => res.status(200).json({
-//         message: 'le post est bien supprimé !'
-//     }))
-//     .catch(error => res.status(400).json({
-//         error
-//     }))
-//     }
-//       }
-//       else {
-//         models.Message.destroy({
-//           where: {
-//             id: message_id,
-//           }
-//         })
-//     .then(() =>
-//       res.status(200).json({
-//         message: "le post est bien supprimé !",
-//       })
-//     )
-//     .catch((error) =>
-//       res.status(400).json({
-//         error,
-//       })
-//     );
-//     }
-//   })
-//   .catch(error => res.status(400).json({error}))
-//   // console.log(message.attachment.split('/images/')[1])
-
-//   // .then ((message)=> {
-
-//   // } )
-//   // .then(() =>
-//   //   res.status(200).json({
-//   //     message: "Publication supprimée",
-//   //   })
-//   // );
-// };;
-
 exports.modifyMessage = (req, res, next) => {
 
+  console.log(req.headers)
   const title = req.body.body.title
+  console.log(title)
   const content = req.body.body.content;
-  console.log(req.body.body.content);
+  console.log(content);
   const message_id = req.params.id;
   console.log(message_id);
 
-  models.Message.update({ content: content,title : title }, { where: { id: message_id } })
+  models.Message.update({ content: content || null ,title : title || null }, { where: { id: message_id } })
     .then(() => res.status(200).json({ message: "Publication modifiée avec succès" }))
     .catch((error) =>
       res.status(400).json({ message: "Impossible de modifier ce post" })

@@ -32,7 +32,7 @@ export default function Dashboard() {
 
   const [users, setUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const fetchUser = useEffect(() => {
+
     const fetchData = () => {
       fetch("http://localhost:3000/api/UserProfile/Admin", {
         headers: {
@@ -45,8 +45,9 @@ export default function Dashboard() {
         .then((data) => {
           setUsers(data);
         });
-    };
-
+      };
+      
+useEffect(() => {
     fetchData();
   }, []);
 
@@ -67,7 +68,7 @@ export default function Dashboard() {
           },
         })
         .then(() => alert("Le compte de l'utilisateur a bien été supprimé"))
-        .then(()=> fetchUser())
+        .then(()=> fetchData())
         .catch((err) => console.log(err));
     }
   }

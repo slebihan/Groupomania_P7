@@ -15,7 +15,7 @@ module.exports = (req, res, next) => {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     const isAdmin = decodedToken.isAdmin;
     if (isAdmin === false) {
-        throw 'interdit aux non admins';
+        throw "interdit d'accès";
 
     } else {
         next();

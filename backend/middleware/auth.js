@@ -9,7 +9,7 @@ require('dotenv').config()
 // On vérifie que l'userId de la requête correspond à celle du token
 // Si la requête est réussi celle-ci nous autorise à passer au middleware suivant
 
-const auth = (req, res, next) => {
+module.exports = (req, res, next) => {
   try {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
@@ -27,4 +27,3 @@ const auth = (req, res, next) => {
   }
 };
 
-module.exports = auth
