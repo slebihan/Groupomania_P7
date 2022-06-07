@@ -100,7 +100,7 @@ export default function UserProfileEdit() {
         !emailRegExp.test(values.email)
       ) {
         alert(
-          "Merci de remplir un email et Le mot de passe est de minimum 8 caractères et maximum 25 caractères, doit contenir une minuscule,une majuscule,un chiffre et un caractère spécial @$!%+*?& "
+          "Merci de remplir un email @groupomania.fr et Le mot de passe est de minimum 8 caractères et maximum 25 caractères, doit contenir une minuscule,une majuscule,un chiffre et un caractère spécial @$!%+*?& "
         );
       } else {
         if (
