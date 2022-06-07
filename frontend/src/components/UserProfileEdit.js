@@ -71,9 +71,7 @@ export default function UserProfileEdit() {
   };
 
   const emailRegExp = new RegExp("^.+(@groupomania.fr$)");
-  const passwordRegExp = new RegExp(
-  "(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,})(?:.*[0-9]{1,3})(?:.*[+@=*&$-]{0,1})."
-  );
+  const passwordRegExp = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@+$!%*?&])[A-Za-z\d@$!%*+?&]{8,25}$/);
 
   const formik = useFormik({
     initialValues: {
@@ -81,7 +79,7 @@ export default function UserProfileEdit() {
       lastname: "",
       email: "",
       password: "",
-      attachment: null,
+      attachment: "",
     },
     onSubmit: (values) => {
       const Lastnamevalue = document.getElementById("lastname").value;
@@ -102,7 +100,7 @@ export default function UserProfileEdit() {
         !emailRegExp.test(values.email)
       ) {
         alert(
-          "Le mot de passe est de minimum 8 caractères et maximum 12 caractères, contenir une minuscule,une majuscule,entre 1 et 4 chiffres et un caractère spécial"
+          "Merci de remplir un email et Le mot de passe est de minimum 8 caractères et maximum 25 caractères, doit contenir une minuscule,une majuscule,un chiffre et un caractère spécial @$!%+*?& "
         );
       } else {
         if (
@@ -153,11 +151,10 @@ export default function UserProfileEdit() {
         .put(
           `http://localhost:3000/api/UserProfileEdit/avatar/` + params.userId,
           {
-            body: { userId: params.userId },
-            headers: {
+            body: { userId: params.userId }},
+            {headers: {
               Authorization: "Bearer " + Cookies.get("jwt"),
-            },
-          }
+            }}
         )
         .then((success) => {
           setAvatar();

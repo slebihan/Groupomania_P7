@@ -33,8 +33,9 @@ export default function Signup() {
     password: Yup.string()
       .required("Ce champ est requis")
       .matches(
-        /(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,})(?:.*[0-9]{1,3})(?:.*[+@=*&$-]{0,1})./,
-        "Le mot de passe est de 8 à 15 caractères, doit contenir une majuscule,une minuscule,un chiffre et un caractère spécial (+@=*&$-)"
+        // /(?=.{8,15}$)(?:[A-Z]{1,})([a-z]{1,})(?:.*[0-9]{1,3})(?:.*[+@=*&$-]{0,1})./,
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,25}$/,
+        "Le mot de passe est de 8 à 25 caractères, doit contenir une majuscule,une minuscule,un chiffre et un caractère spécial (+@=*&$-)"
       ),
   });
 
@@ -102,9 +103,9 @@ export default function Signup() {
           onChange={formik.handleChange}
           value={formik.values.password || ""}
         />
-        {formik.errors.password && formik.touched.password ? (
+        {formik.errors.password && formik.touched.password && 
           <div>{formik.errors.password}</div>
-        ) : null}
+        }
       </div>
       <button type="submit" aria-label="s'inscrire">S'inscrire</button>
     </form>

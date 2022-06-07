@@ -14,6 +14,6 @@ router.get("/messages/unlike",messageCtrl.getDislikes)
 router.post("/messages/:id/like",messageCtrl.like);
 router.post("/messages/:id/unlike",messageCtrl.unlike)
 router.delete("/messages/:id",auth,messageCtrl.deleteMessage)
-router.put("/messages/:id",messageCtrl.modifyMessage)
+router.put("/messages/:id",auth,messageCtrl.modifyMessage)
 
 module.exports = router

@@ -275,6 +275,7 @@ exports.modifyMessage = (req, res, next) => {
   console.log(content);
   const message_id = req.params.id;
   console.log(message_id);
+  console.log(req.body)
 
   models.Message.update({ content: content || null ,title : title || null }, { where: { id: message_id } })
     .then(() => res.status(200).json({ message: "Publication modifiée avec succès" }))

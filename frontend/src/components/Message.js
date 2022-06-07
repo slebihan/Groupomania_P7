@@ -29,8 +29,6 @@ export default function Message() {
   const decodedToken = JSON.parse(window.atob(base64));
 
   const userId = decodedToken.userId;
-  const isAdmin = decodedToken.isAdmin
-
 
   const [messages, setMessages] = useState([]);
 
@@ -99,12 +97,12 @@ export default function Message() {
     
     axios
       .put(`http://localhost:3000/api/messages/${id}`, {
-        body: { content: textUpdateContent || "" , title: textUpdateTitle || "" },
-        headers: {
-          Authorization: "Bearer " + Cookies.get("jwt"),
-          "Content-Type": "multipart/form-data,application/json",
-        },
-      })
+        body: { content: textUpdateContent || "" , title: textUpdateTitle || "" }
+      },
+      {headers: {
+        Authorization: "Bearer " + Cookies.get("jwt"),
+      }}
+      )
       .then(() => messageData())
       .catch((err) => console.log(err));
   }

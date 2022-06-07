@@ -12,12 +12,11 @@ router.post('/register', userCtrl.register);
 router.post('/login', userCtrl.login);
 router.delete('/UserProfileEdit/:userId',auth,userCtrl.deleteAccount);
 router.delete('/UserProfile/Admin/:userId',authAdmin,userCtrl.deleteAccountbyAdmin)
-router.put('/UserProfileEdit/avatar/:userId',multer,userCtrl.deleteImageProfil)   
+router.put('/UserProfileEdit/avatar/:userId',auth,multer,userCtrl.deleteImageProfil)   
 router.get('/UserProfile/Admin',auth,userCtrl.getAllUsers)
 router.get('/UserProfileEdit/:userId',auth,userCtrl.getOneUser)
 router.post('/logout',userCtrl.logout)
 router.put('/UserProfileEdit/:userId',auth,multer,userCtrl.updateUser)
-
 
 
 module.exports = router
