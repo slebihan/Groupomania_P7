@@ -14,6 +14,7 @@ export default function Login() {
     function timeout(){
        Cookies.remove("jwt")
        alert("votre session a expiré, merci de vous reconnecter")
+       navigate("/")
     }
 
     let navigate = useNavigate()
@@ -37,7 +38,7 @@ export default function Login() {
             .then((res)=>{
             
                 Cookies.set('jwt',res.data.token,{secure:true})
-                setTimeout(timeout,30 * 60 * 1000) // Token expire dans 30min
+                setTimeout(timeout,1 * 60 * 1000) // Token expire dans 30min
                 if(res.data.user.isAdmin){
                 navigate('/UserProfile/Admin')}
                 else{navigate(`/UserProfile/${res.data.userId}`)}
